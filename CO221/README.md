@@ -1,2 +1,2 @@
 CO221 - Digital Design
-  Labs & Project
+  - Labs & Project
