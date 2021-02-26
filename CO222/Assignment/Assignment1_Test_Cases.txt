@@ -1,0 +1,46 @@
+./clc -B -I 100110011001111a1001100110011001
+ERROR: Input format error at location 15.
+
+./clc -H -I -15A1C58
+ERROR: Input format error at location 0.
+
+./clc -I -I 125-45
+ERROR: Input format error at location 3.
+
+./clc -D -I -23.89.14
+ERROR: Input format error at location 6.
+
+./clc -I -F -23
+-23.00
+
+./clc -I -B 1
+00000000000000000000000000000001
+
+./clc -I -H 1
+0x00000001
+
+./clc -B -I 00111011101110111011101110111011
+1002159035
+
+./clc -B -F 11000001010001001100110011001101
+-12.30
+
+./clc -B -B 11000000010001101111000111101011
+11000000010001101111000111101011
+
+./clc -H -H 2345C
+ERROR: The input size is wrong.
+
+./clc -H -I 45ACB67845ACB678
+ERROR: This conversion is not possible.
+
+./clc -F -I 159.75
+WARNING:  There is a possibility for a precision loss.
+159
+
+./clc -D -F 741.369009
+ERROR: This conversion is not possible.
+
+./clc -F -I 71474836475.369
+ERROR: This conversion is not possible.
+

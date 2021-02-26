@@ -1,0 +1,2 @@
+ERROR: The output argument is wrong.
+Possible output arguments are -B, -H, -I, -F and -D.

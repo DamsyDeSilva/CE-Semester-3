@@ -1,0 +1,2 @@
+ERROR: The number of arguments is wrong.
+Usage: ./clc -<input format> -<output format> <input>
