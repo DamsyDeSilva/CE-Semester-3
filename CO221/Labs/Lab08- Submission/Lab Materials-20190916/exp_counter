@@ -1,0 +1,305 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x1c89d20 .scope module, "testbed" "testbed" 2 4;
+ .timescale 0 0;
+v0x1cbba10_0 .var "CLEAR_BAR", 0 0;
+v0x1cbba90_0 .var "CLK", 0 0;
+RS_0x7f2e14b9eac8 .resolv tri, L_0x1cbc500, L_0x1cbd080, L_0x1cbdc60, L_0x1cbe980;
+v0x1cbbba0_0 .net8 "NUM", 3 0, RS_0x7f2e14b9eac8; 4 drivers
+S_0x1c899b0 .scope module, "mycounter" "rippleCounter4" 2 18, 2 93, S_0x1c89d20;
+ .timescale 0 0;
+v0x1cbb810_0 .net "clear_bar", 0 0, v0x1cbba10_0; 1 drivers
+v0x1cbb890_0 .net "count", 0 0, v0x1cbba90_0; 1 drivers
+v0x1cbb910_0 .alias "num", 3 0, v0x1cbbba0_0;
+v0x1cbb990_0 .net "set", 3 0, C4<zzzz>; 0 drivers
+L_0x1cbc500 .part/pv L_0x1cbc330, 0, 1, 4;
+L_0x1cbd080 .part/pv L_0x1cbce90, 1, 1, 4;
+L_0x1cbd1b0 .part RS_0x7f2e14b9eac8, 0, 1;
+L_0x1cbdc60 .part/pv L_0x1cbda70, 2, 1, 4;
+L_0x1cbdd90 .part RS_0x7f2e14b9eac8, 1, 1;
+L_0x1cbe980 .part/pv L_0x1cbe810, 3, 1, 4;
+L_0x1cbeaf0 .part RS_0x7f2e14b9eac8, 2, 1;
+S_0x1cb9c30 .scope module, "A0" "T_FlipFlop" 2 99, 2 82, S_0x1c899b0;
+ .timescale 0 0;
+L_0x1cbbc50 .functor XOR 1, L_0x1cbc330, C4<1>, C4<0>, C4<0>;
+v0x1cbb4f0_0 .net "D", 0 0, L_0x1cbbc50; 1 drivers
+v0x1cbb5c0_0 .net "Q", 0 0, L_0x1cbc330; 1 drivers
+v0x1cbb640_0 .net "T", 0 0, C4<1>; 1 drivers
+v0x1cbb6c0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cbb740_0 .alias "clk", 0 0, v0x1cbb890_0;
+S_0x1cb9d20 .scope module, "myD" "D_FlipFlop" 2 89, 2 72, S_0x1cb9c30;
+ .timescale 0 0;
+L_0x1cbc460 .functor NOT 1, v0x1cbba90_0, C4<0>, C4<0>, C4<0>;
+v0x1cbb1c0_0 .alias "D", 0 0, v0x1cbb4f0_0;
+v0x1cbb270_0 .alias "Q", 0 0, v0x1cbb5c0_0;
+v0x1cbb340_0 .net "Y", 0 0, L_0x1cbbf60; 1 drivers
+v0x1cbb3c0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cbb440_0 .alias "clk", 0 0, v0x1cbb890_0;
+S_0x1cba7e0 .scope module, "master" "D_latch" 2 77, 2 61, S_0x1cb9d20;
+ .timescale 0 0;
+L_0x1cbbd70 .functor NAND 1, L_0x1cbbc50, v0x1cbba90_0, C4<1>, C4<1>;
+L_0x1cbbe80 .functor NAND 1, v0x1cbba90_0, L_0x1cbbf00, C4<1>, C4<1>;
+L_0x1cbbf00 .functor NOT 1, L_0x1cbbc50, C4<0>, C4<0>, C4<0>;
+v0x1cbaca0_0 .alias "D", 0 0, v0x1cbb4f0_0;
+v0x1cbad20_0 .alias "En", 0 0, v0x1cbb890_0;
+v0x1cbadc0_0 .alias "Q", 0 0, v0x1cbb340_0;
+v0x1cbae90_0 .net "Qbar", 0 0, L_0x1cbc070; 1 drivers
+v0x1cbaf40_0 .net "R", 0 0, L_0x1cbbe80; 1 drivers
+v0x1cbaff0_0 .net "S", 0 0, L_0x1cbbd70; 1 drivers
+v0x1cbb070_0 .net *"_s2", 0 0, L_0x1cbbf00; 1 drivers
+v0x1cbb0f0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cba8d0 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cba7e0;
+ .timescale 0 0;
+L_0x1cbbf60 .functor NAND 1, L_0x1cbbd70, L_0x1cbc070, C4<1>, C4<1>;
+L_0x1cbc070 .functor NAND 1, L_0x1cbbf60, L_0x1cbbe80, v0x1cbba10_0, C4<1>;
+v0x1cba9c0_0 .alias "Q", 0 0, v0x1cbb340_0;
+v0x1cbaa70_0 .alias "Qbar", 0 0, v0x1cbae90_0;
+v0x1cbaaf0_0 .alias "R", 0 0, v0x1cbaf40_0;
+v0x1cbab70_0 .alias "S", 0 0, v0x1cbaff0_0;
+v0x1cbac20_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb9e10 .scope module, "slave" "D_latch" 2 78, 2 61, S_0x1cb9d20;
+ .timescale 0 0;
+L_0x1cbc0d0 .functor NAND 1, L_0x1cbbf60, L_0x1cbc460, C4<1>, C4<1>;
+L_0x1cbc180 .functor NAND 1, L_0x1cbc460, L_0x1cbc280, C4<1>, C4<1>;
+L_0x1cbc280 .functor NOT 1, L_0x1cbbf60, C4<0>, C4<0>, C4<0>;
+v0x1cba270_0 .alias "D", 0 0, v0x1cbb340_0;
+v0x1cba330_0 .net "En", 0 0, L_0x1cbc460; 1 drivers
+v0x1cba3d0_0 .alias "Q", 0 0, v0x1cbb5c0_0;
+v0x1cba480_0 .net "Qbar", 0 0, L_0x1cbc400; 1 drivers
+v0x1cba560_0 .net "R", 0 0, L_0x1cbc180; 1 drivers
+v0x1cba610_0 .net "S", 0 0, L_0x1cbc0d0; 1 drivers
+v0x1cba690_0 .net *"_s2", 0 0, L_0x1cbc280; 1 drivers
+v0x1cba710_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb9f00 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb9e10;
+ .timescale 0 0;
+L_0x1cbc330 .functor NAND 1, L_0x1cbc0d0, L_0x1cbc400, C4<1>, C4<1>;
+L_0x1cbc400 .functor NAND 1, L_0x1cbc330, L_0x1cbc180, v0x1cbba10_0, C4<1>;
+v0x1cb9ff0_0 .alias "Q", 0 0, v0x1cbb5c0_0;
+v0x1cba070_0 .alias "Qbar", 0 0, v0x1cba480_0;
+v0x1cba0f0_0 .alias "R", 0 0, v0x1cba560_0;
+v0x1cba170_0 .alias "S", 0 0, v0x1cba610_0;
+v0x1cba1f0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb7f40 .scope module, "A1" "T_FlipFlop" 2 100, 2 82, S_0x1c899b0;
+ .timescale 0 0;
+L_0x1cbc6c0 .functor XOR 1, L_0x1cbce90, C4<1>, C4<0>, C4<0>;
+v0x1cb9960_0 .net "D", 0 0, L_0x1cbc6c0; 1 drivers
+v0x1cb99e0_0 .net "Q", 0 0, L_0x1cbce90; 1 drivers
+v0x1cb9a60_0 .net "T", 0 0, C4<1>; 1 drivers
+v0x1cb9ae0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb9b60_0 .net "clk", 0 0, L_0x1cbd1b0; 1 drivers
+S_0x1cb8030 .scope module, "myD" "D_FlipFlop" 2 89, 2 72, S_0x1cb7f40;
+ .timescale 0 0;
+L_0x1cbcfe0 .functor NOT 1, L_0x1cbd1b0, C4<0>, C4<0>, C4<0>;
+v0x1cb94d0_0 .alias "D", 0 0, v0x1cb9960_0;
+v0x1cb9580_0 .alias "Q", 0 0, v0x1cb99e0_0;
+v0x1cb9650_0 .net "Y", 0 0, L_0x1cbca60; 1 drivers
+v0x1cb96d0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb7340_0 .alias "clk", 0 0, v0x1cb9b60_0;
+S_0x1cb8af0 .scope module, "master" "D_latch" 2 77, 2 61, S_0x1cb8030;
+ .timescale 0 0;
+L_0x1cbc7d0 .functor NAND 1, L_0x1cbc6c0, L_0x1cbd1b0, C4<1>, C4<1>;
+L_0x1cb73f0 .functor NAND 1, L_0x1cbd1b0, L_0x1cbca00, C4<1>, C4<1>;
+L_0x1cbca00 .functor NOT 1, L_0x1cbc6c0, C4<0>, C4<0>, C4<0>;
+v0x1cb8fb0_0 .alias "D", 0 0, v0x1cb9960_0;
+v0x1cb9030_0 .alias "En", 0 0, v0x1cb9b60_0;
+v0x1cb90d0_0 .alias "Q", 0 0, v0x1cb9650_0;
+v0x1cb91a0_0 .net "Qbar", 0 0, L_0x1cbcb90; 1 drivers
+v0x1cb9250_0 .net "R", 0 0, L_0x1cb73f0; 1 drivers
+v0x1cb9300_0 .net "S", 0 0, L_0x1cbc7d0; 1 drivers
+v0x1cb9380_0 .net *"_s2", 0 0, L_0x1cbca00; 1 drivers
+v0x1cb9400_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb8be0 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb8af0;
+ .timescale 0 0;
+L_0x1cbca60 .functor NAND 1, L_0x1cbc7d0, L_0x1cbcb90, C4<1>, C4<1>;
+L_0x1cbcb90 .functor NAND 1, L_0x1cbca60, L_0x1cb73f0, v0x1cbba10_0, C4<1>;
+v0x1cb8cd0_0 .alias "Q", 0 0, v0x1cb9650_0;
+v0x1cb8d80_0 .alias "Qbar", 0 0, v0x1cb91a0_0;
+v0x1cb8e00_0 .alias "R", 0 0, v0x1cb9250_0;
+v0x1cb8e80_0 .alias "S", 0 0, v0x1cb9300_0;
+v0x1cb8f30_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb8120 .scope module, "slave" "D_latch" 2 78, 2 61, S_0x1cb8030;
+ .timescale 0 0;
+L_0x1cbcbf0 .functor NAND 1, L_0x1cbca60, L_0x1cbcfe0, C4<1>, C4<1>;
+L_0x1cbccc0 .functor NAND 1, L_0x1cbcfe0, L_0x1cbcde0, C4<1>, C4<1>;
+L_0x1cbcde0 .functor NOT 1, L_0x1cbca60, C4<0>, C4<0>, C4<0>;
+v0x1cb8580_0 .alias "D", 0 0, v0x1cb9650_0;
+v0x1cb8640_0 .net "En", 0 0, L_0x1cbcfe0; 1 drivers
+v0x1cb86e0_0 .alias "Q", 0 0, v0x1cb99e0_0;
+v0x1cb8790_0 .net "Qbar", 0 0, L_0x1cbcf80; 1 drivers
+v0x1cb8870_0 .net "R", 0 0, L_0x1cbccc0; 1 drivers
+v0x1cb8920_0 .net "S", 0 0, L_0x1cbcbf0; 1 drivers
+v0x1cb89a0_0 .net *"_s2", 0 0, L_0x1cbcde0; 1 drivers
+v0x1cb8a20_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb8210 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb8120;
+ .timescale 0 0;
+L_0x1cbce90 .functor NAND 1, L_0x1cbcbf0, L_0x1cbcf80, C4<1>, C4<1>;
+L_0x1cbcf80 .functor NAND 1, L_0x1cbce90, L_0x1cbccc0, v0x1cbba10_0, C4<1>;
+v0x1cb8300_0 .alias "Q", 0 0, v0x1cb99e0_0;
+v0x1cb8380_0 .alias "Qbar", 0 0, v0x1cb8790_0;
+v0x1cb8400_0 .alias "R", 0 0, v0x1cb8870_0;
+v0x1cb8480_0 .alias "S", 0 0, v0x1cb8920_0;
+v0x1cb8500_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb62d0 .scope module, "A2" "T_FlipFlop" 2 101, 2 82, S_0x1c899b0;
+ .timescale 0 0;
+L_0x1cbd2e0 .functor XOR 1, L_0x1cbda70, C4<1>, C4<0>, C4<0>;
+v0x1cb7c20_0 .net "D", 0 0, L_0x1cbd2e0; 1 drivers
+v0x1cb7cf0_0 .net "Q", 0 0, L_0x1cbda70; 1 drivers
+v0x1cb7d70_0 .net "T", 0 0, C4<1>; 1 drivers
+v0x1cb7df0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb7e70_0 .net "clk", 0 0, L_0x1cbdd90; 1 drivers
+S_0x1cb63c0 .scope module, "myD" "D_FlipFlop" 2 89, 2 72, S_0x1cb62d0;
+ .timescale 0 0;
+L_0x1cbdbc0 .functor NOT 1, L_0x1cbdd90, C4<0>, C4<0>, C4<0>;
+v0x1cb78f0_0 .alias "D", 0 0, v0x1cb7c20_0;
+v0x1cb79a0_0 .alias "Q", 0 0, v0x1cb7cf0_0;
+v0x1cb7a70_0 .net "Y", 0 0, L_0x1cbd690; 1 drivers
+v0x1cb7af0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb7b70_0 .alias "clk", 0 0, v0x1cb7e70_0;
+S_0x1cb6e80 .scope module, "master" "D_latch" 2 77, 2 61, S_0x1cb63c0;
+ .timescale 0 0;
+L_0x1cbd3f0 .functor NAND 1, L_0x1cbd2e0, L_0x1cbdd90, C4<1>, C4<1>;
+L_0x1cbd520 .functor NAND 1, L_0x1cbdd90, L_0x1cbd630, C4<1>, C4<1>;
+L_0x1cbd630 .functor NOT 1, L_0x1cbd2e0, C4<0>, C4<0>, C4<0>;
+v0x1cb5ec0_0 .alias "D", 0 0, v0x1cb7c20_0;
+v0x1cb7450_0 .alias "En", 0 0, v0x1cb7e70_0;
+v0x1cb74f0_0 .alias "Q", 0 0, v0x1cb7a70_0;
+v0x1cb75c0_0 .net "Qbar", 0 0, L_0x1cbd7c0; 1 drivers
+v0x1cb7670_0 .net "R", 0 0, L_0x1cbd520; 1 drivers
+v0x1cb7720_0 .net "S", 0 0, L_0x1cbd3f0; 1 drivers
+v0x1cb77a0_0 .net *"_s2", 0 0, L_0x1cbd630; 1 drivers
+v0x1cb7820_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb6f70 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb6e80;
+ .timescale 0 0;
+L_0x1cbd690 .functor NAND 1, L_0x1cbd3f0, L_0x1cbd7c0, C4<1>, C4<1>;
+L_0x1cbd7c0 .functor NAND 1, L_0x1cbd690, L_0x1cbd520, v0x1cbba10_0, C4<1>;
+v0x1cb7060_0 .alias "Q", 0 0, v0x1cb7a70_0;
+v0x1cb7110_0 .alias "Qbar", 0 0, v0x1cb75c0_0;
+v0x1cb7190_0 .alias "R", 0 0, v0x1cb7670_0;
+v0x1cb7210_0 .alias "S", 0 0, v0x1cb7720_0;
+v0x1cb72c0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb64b0 .scope module, "slave" "D_latch" 2 78, 2 61, S_0x1cb63c0;
+ .timescale 0 0;
+L_0x1cbd820 .functor NAND 1, L_0x1cbd690, L_0x1cbdbc0, C4<1>, C4<1>;
+L_0x1cbd8a0 .functor NAND 1, L_0x1cbdbc0, L_0x1cbd9c0, C4<1>, C4<1>;
+L_0x1cbd9c0 .functor NOT 1, L_0x1cbd690, C4<0>, C4<0>, C4<0>;
+v0x1cb6910_0 .alias "D", 0 0, v0x1cb7a70_0;
+v0x1cb69d0_0 .net "En", 0 0, L_0x1cbdbc0; 1 drivers
+v0x1cb6a70_0 .alias "Q", 0 0, v0x1cb7cf0_0;
+v0x1cb6b20_0 .net "Qbar", 0 0, L_0x1cbdb60; 1 drivers
+v0x1cb6c00_0 .net "R", 0 0, L_0x1cbd8a0; 1 drivers
+v0x1cb6cb0_0 .net "S", 0 0, L_0x1cbd820; 1 drivers
+v0x1cb6d30_0 .net *"_s2", 0 0, L_0x1cbd9c0; 1 drivers
+v0x1cb6db0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb65a0 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb64b0;
+ .timescale 0 0;
+L_0x1cbda70 .functor NAND 1, L_0x1cbd820, L_0x1cbdb60, C4<1>, C4<1>;
+L_0x1cbdb60 .functor NAND 1, L_0x1cbda70, L_0x1cbd8a0, v0x1cbba10_0, C4<1>;
+v0x1cb6690_0 .alias "Q", 0 0, v0x1cb7cf0_0;
+v0x1cb6710_0 .alias "Qbar", 0 0, v0x1cb6b20_0;
+v0x1cb6790_0 .alias "R", 0 0, v0x1cb6c00_0;
+v0x1cb6810_0 .alias "S", 0 0, v0x1cb6cb0_0;
+v0x1cb6890_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1c957f0 .scope module, "A3" "T_FlipFlop" 2 102, 2 82, S_0x1c899b0;
+ .timescale 0 0;
+L_0x1cbde30 .functor XOR 1, L_0x1cbe810, C4<1>, C4<0>, C4<0>;
+v0x1cb6000_0 .net "D", 0 0, L_0x1cbde30; 1 drivers
+v0x1cb6080_0 .net "Q", 0 0, L_0x1cbe810; 1 drivers
+v0x1cb6100_0 .net "T", 0 0, C4<1>; 1 drivers
+v0x1cb6180_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb6200_0 .net "clk", 0 0, L_0x1cbeaf0; 1 drivers
+S_0x1c881a0 .scope module, "myD" "D_FlipFlop" 2 89, 2 72, S_0x1c957f0;
+ .timescale 0 0;
+L_0x1cbe920 .functor NOT 1, L_0x1cbeaf0, C4<0>, C4<0>, C4<0>;
+v0x1cb5c40_0 .alias "D", 0 0, v0x1cb6000_0;
+v0x1cb5cf0_0 .alias "Q", 0 0, v0x1cb6080_0;
+v0x1cb5dc0_0 .net "Y", 0 0, L_0x1cbe1c0; 1 drivers
+v0x1cb5e40_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+v0x1cb5f50_0 .alias "clk", 0 0, v0x1cb6200_0;
+S_0x1cb5260 .scope module, "master" "D_latch" 2 77, 2 61, S_0x1c881a0;
+ .timescale 0 0;
+L_0x1cbdf20 .functor NAND 1, L_0x1cbde30, L_0x1cbeaf0, C4<1>, C4<1>;
+L_0x1cbe050 .functor NAND 1, L_0x1cbeaf0, L_0x1cbe160, C4<1>, C4<1>;
+L_0x1cbe160 .functor NOT 1, L_0x1cbde30, C4<0>, C4<0>, C4<0>;
+v0x1cb5770_0 .alias "D", 0 0, v0x1cb6000_0;
+v0x1cb57f0_0 .alias "En", 0 0, v0x1cb6200_0;
+v0x1cb5870_0 .alias "Q", 0 0, v0x1cb5dc0_0;
+v0x1cb5940_0 .net "Qbar", 0 0, L_0x1cbe2f0; 1 drivers
+v0x1cb59c0_0 .net "R", 0 0, L_0x1cbe050; 1 drivers
+v0x1cb5a70_0 .net "S", 0 0, L_0x1cbdf20; 1 drivers
+v0x1cb5af0_0 .net *"_s2", 0 0, L_0x1cbe160; 1 drivers
+v0x1cb5b70_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1cb5350 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1cb5260;
+ .timescale 0 0;
+L_0x1cbe1c0 .functor NAND 1, L_0x1cbdf20, L_0x1cbe2f0, C4<1>, C4<1>;
+L_0x1cbe2f0 .functor NAND 1, L_0x1cbe1c0, L_0x1cbe050, v0x1cbba10_0, C4<1>;
+v0x1cb5440_0 .alias "Q", 0 0, v0x1cb5dc0_0;
+v0x1cb54f0_0 .alias "Qbar", 0 0, v0x1cb5940_0;
+v0x1cb5570_0 .alias "R", 0 0, v0x1cb59c0_0;
+v0x1cb55f0_0 .alias "S", 0 0, v0x1cb5a70_0;
+v0x1cb56a0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1c95480 .scope module, "slave" "D_latch" 2 78, 2 61, S_0x1c881a0;
+ .timescale 0 0;
+L_0x1cb9750 .functor NAND 1, L_0x1cbe1c0, L_0x1cbe920, C4<1>, C4<1>;
+L_0x1cb9820 .functor NAND 1, L_0x1cbe920, L_0x1cbe760, C4<1>, C4<1>;
+L_0x1cbe760 .functor NOT 1, L_0x1cbe1c0, C4<0>, C4<0>, C4<0>;
+v0x1cb4c80_0 .alias "D", 0 0, v0x1cb5dc0_0;
+v0x1cb4d40_0 .net "En", 0 0, L_0x1cbe920; 1 drivers
+v0x1cb4de0_0 .alias "Q", 0 0, v0x1cb6080_0;
+v0x1cb4e90_0 .net "Qbar", 0 0, L_0x1cbe8c0; 1 drivers
+v0x1cb4f70_0 .net "R", 0 0, L_0x1cb9820; 1 drivers
+v0x1cb5020_0 .net "S", 0 0, L_0x1cb9750; 1 drivers
+v0x1cb50e0_0 .net *"_s2", 0 0, L_0x1cbe760; 1 drivers
+v0x1cb5160_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+S_0x1c93dc0 .scope module, "latch" "SR_latch" 2 68, 2 51, S_0x1c95480;
+ .timescale 0 0;
+L_0x1cbe810 .functor NAND 1, L_0x1cb9750, L_0x1cbe8c0, C4<1>, C4<1>;
+L_0x1cbe8c0 .functor NAND 1, L_0x1cbe810, L_0x1cb9820, v0x1cbba10_0, C4<1>;
+v0x1c93670_0 .alias "Q", 0 0, v0x1cb6080_0;
+v0x1cb49f0_0 .alias "Qbar", 0 0, v0x1cb4e90_0;
+v0x1cb4a90_0 .alias "R", 0 0, v0x1cb4f70_0;
+v0x1cb4b30_0 .alias "S", 0 0, v0x1cb5020_0;
+v0x1cb4be0_0 .alias "clear_bar", 0 0, v0x1cbb810_0;
+    .scope S_0x1c89d20;
+T_0 ;
+    %vpi_call 2 11 "$monitor", $time, " Count : %d", v0x1cbbba0_0;
+    %end;
+    .thread T_0;
+    .scope S_0x1c89d20;
+T_1 ;
+    %set/v v0x1cbba10_0, 0, 1;
+    %delay 5, 0;
+    %set/v v0x1cbba10_0, 1, 1;
+    %delay 500, 0;
+    %set/v v0x1cbba10_0, 0, 1;
+    %delay 50, 0;
+    %set/v v0x1cbba10_0, 1, 1;
+    %end;
+    .thread T_1;
+    .scope S_0x1c89d20;
+T_2 ;
+    %vpi_call 2 35 "$dumpfile", "wavedata.vcd";
+    %vpi_call 2 36 "$dumpvars", 1'sb0, S_0x1c89d20;
+    %set/v v0x1cbba90_0, 0, 1;
+T_2.0 ;
+    %delay 10, 0;
+    %load/v 8, v0x1cbba90_0, 1;
+    %inv 8, 1;
+    %set/v v0x1cbba90_0, 8, 1;
+    %jmp T_2.0;
+    %end;
+    .thread T_2;
+    .scope S_0x1c89d20;
+T_3 ;
+    %delay 700, 0;
+    %vpi_call 2 46 "$finish";
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "counter.v";
